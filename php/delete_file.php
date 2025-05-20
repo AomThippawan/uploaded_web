@@ -4,7 +4,7 @@ include 'config_db.php';
 
 // ตรวจสอบสิทธิ์ admin
 if ($_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 
