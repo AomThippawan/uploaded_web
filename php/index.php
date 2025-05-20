@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="login-card">
     <h2>เข้าสู่ระบบ</h2>
     <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
-    <form action="login.php" method="POST">
+    <form action="index.php" method="POST">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <input type="submit" value="เข้าสู่ระบบ">
