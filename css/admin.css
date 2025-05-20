@@ -1,0 +1,135 @@
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #72d469;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f7f5f5;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+}
+
+.dropdown {
+    margin-top: 10px;
+    margin-right: 5px;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1;
+    text-align: left;
+}
+
+.dropdown p {
+    margin: 10px 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #8e0703;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.dropdown a:hover {
+    background-color: #f8f9fa;
+}
+
+.show {
+    display: block;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: white;
+    padding-left: 60px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.container a {
+    display: block;
+    margin: 15px 0;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+.menu {
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.menu-item {
+    display: block;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    margin: 10px auto;
+    border-radius: 8px;
+    font-size: 18px;
+    max-width: 300px;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #218838;
+}
+
+.logout-button {
+    margin-top: 190px;
+    width: 90%;
+    padding: 10px;
+    background-color: #ff7b8a;
+    color: rgb(158, 2, 2);
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+    background-color: #cb4351; /* สีแดงเข้ม */
+    color: rgb(15, 14, 14);
+}
