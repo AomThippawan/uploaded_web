@@ -1,6 +1,7 @@
 <?php
 session_start();
 require __DIR__ . '/../vendor/autoload.php';
+
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 include 'config_db.php';
@@ -33,11 +34,11 @@ if (isset($_FILES['excel_file']) && isset($_POST['allowed_users'])) {
         $spreadsheet = IOFactory::load($targetPath);
         $sheet = $spreadsheet->getActiveSheet();
         $data = $sheet->toArray();
+        $tableName = preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '_', pathinfo($filename, PATHINFO_FILENAME));
 
-        $tableName = preg_replace('/[^a-zA-Z0-9_]/', '_', pathinfo($filename, PATHINFO_FILENAME));
         $rawHeaders = $data[0];
 
-        // ✅ ใช้ชื่อภาษาไทยเป็นคอลัมน์
+
         $columns = array_map(function ($col) {
             return "`" . str_replace("`", "", $col) . "` VARCHAR(255)";
         }, $rawHeaders);

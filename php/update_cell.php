@@ -18,7 +18,7 @@ if (!$id || !$column || !$table) {
 }
 
 $column = str_replace("`", "", $column);
-$table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
+$table = preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $table);
 
 // ตรวจสอบสิทธิ์
 $stmt = $conn->prepare("SELECT allowed_users FROM uploaded_file WHERE REPLACE(filename, '.xlsx', '') = ?");

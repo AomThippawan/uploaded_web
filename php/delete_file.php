@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
 
         // แปลงชื่อไฟล์ (เช่น uploads/student.xlsx → student)
         $filename = pathinfo($filepath, PATHINFO_FILENAME);
-        $tablename = preg_replace('/[^a-zA-Z0-9_]/', '', $filename); // กัน SQL Injection
+        $tablename = preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $filename); // กัน SQL Injection
         
         // ลบตารางในฐานข้อมูล
         $dropSql = "DROP TABLE IF EXISTS `$tablename`";

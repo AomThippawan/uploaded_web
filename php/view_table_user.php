@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 $role = $_SESSION['role'];
 
-$table = isset($_GET['table']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['table']) : '';
+$table = isset($_GET['table']) ? preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $_GET['table']) : '';
 
 if (!$table) die("ไม่พบชื่อตาราง");
 

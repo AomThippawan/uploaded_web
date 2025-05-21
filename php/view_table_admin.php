@@ -2,17 +2,36 @@
 session_start();
 include 'config_db.php';
 
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit;
 }
 
-$table = isset($_GET['table']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['table']) : '';
+$username = $_SESSION['username'];
+$role = $_SESSION['role'];
+
+$table = isset($_GET['table']) ? preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $_GET['table']) : '';
+
 if (!$table) die("ไม่พบชื่อตาราง");
 
 $check = $conn->query("SHOW TABLES LIKE '$table'");
 if ($check->num_rows === 0) die("ไม่พบตาราง $table");
 
+$stmt = $conn->prepare("SELECT allowed_users FROM uploaded_file WHERE REPLACE(filename, '.xlsx', '') = ?");
+$stmt->bind_param("s", $table);
+$stmt->execute();
+$res = $stmt->get_result();
+
+if ($res->num_rows === 0) die("ไม่พบข้อมูลไฟล์ในระบบ");
+
+$row = $res->fetch_assoc();
+$allowed_users = array_map('trim', explode(',', $row['allowed_users']));
+
+if ($role !== 'admin' && !in_array($username, $allowed_users)) {
+    die("คุณไม่มีสิทธิ์ดูข้อมูลตารางนี้");
+}
+
+// ดึงข้อมูลจากตาราง
 $result = $conn->query("SELECT * FROM `$table`");
 if (!$result) die("เกิดข้อผิดพลาดในการดึงข้อมูล: " . $conn->error);
 ?>
@@ -20,7 +39,7 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>ดูและจัดการตาราง: <?= htmlspecialchars($table) ?></title>
+    <title>ดูข้อมูลไฟล์: <?php echo htmlspecialchars($table); ?></title>
     <style>
         table {
             width: 100%;
@@ -35,116 +54,78 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
             background-color: #eee;
         }
         td[contenteditable="true"] {
-            background-color: #fff;
-        }
-        .actions {
-            margin-top: 20px;
-        }
-        button {
-            margin-right: 10px;
+            background-color:rgb(255, 255, 255);
         }
     </style>
 </head>
 <body>
 
-<h2>ตาราง: <?= htmlspecialchars($table) ?></h2>
-<a href="view_files.php">🔙 ย้อนกลับ</a>
+<h2>ข้อมูลในไฟล์: <?php echo htmlspecialchars($table); ?></h2>
+<a href="<?php echo ($role === 'admin') ? 'admin.php' : 'user.php'; ?>">🔙 ย้อนกลับ</a>
 
-<div class="actions">
-    <button onclick="addRow()">➕ เพิ่มแถว</button>
-    <button onclick="deleteRow()">➖ ลบแถวสุดท้าย</button>
-    <button onclick="addColumn()">➕ เพิ่มคอลัมน์</button>
-    <button onclick="deleteColumn()">➖ ลบคอลัมน์สุดท้าย</button>
+<div class="table-container">
+    <table>
+        <?php if ($result->num_rows > 0): ?>
+            <thead>
+                <tr>
+                    <?php
+                    $firstRow = $result->fetch_assoc();
+                    $columns = array_keys($firstRow);
+                    // กรองไม่เอาคอลัมน์ 'id'
+                    $columns_no_id = array_filter($columns, fn($col) => $col !== 'id');
+                    foreach ($columns_no_id as $col) {
+                        echo "<th>" . htmlspecialchars($col) . "</th>";
+                    }
+                    ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // แสดงแถวแรก โดยไม่แสดงคอลัมน์ id
+                echo "<tr data-id='{$firstRow['id']}'>";
+                foreach ($columns_no_id as $col) {
+                    echo "<td contenteditable='true' data-id='{$firstRow['id']}' data-column='" . htmlspecialchars($col) . "' data-table='" . htmlspecialchars($table) . "'>" . htmlspecialchars($firstRow[$col]) . "</td>";
+                }
+                echo "</tr>";
+
+                // แสดงแถวที่เหลือ โดยไม่แสดงคอลัมน์ id
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr data-id='{$row['id']}'>";
+                    foreach ($columns_no_id as $col) {
+                        echo "<td contenteditable='true' data-id='{$row['id']}' data-column='" . htmlspecialchars($col) . "' data-table='" . htmlspecialchars($table) . "'>" . htmlspecialchars($row[$col]) . "</td>";
+                    }
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        <?php else: ?>
+            <tr><td colspan="100%">ไม่มีข้อมูลในตาราง</td></tr>
+        <?php endif; ?>
+    </table>
 </div>
 
-<table id="data-table">
-    <thead>
-        <tr>
-            <?php
-            $firstRow = $result->fetch_assoc();
-            $columns = array_keys($firstRow);
-            foreach ($columns as $col) {
-                echo "<th>" . htmlspecialchars($col) . "</th>";
-            }
-            ?>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        echo "<tr>";
-        foreach ($columns as $col) {
-            echo "<td contenteditable='true' data-column='" . htmlspecialchars($col) . "' data-id='" . $firstRow['id'] . "'>" . htmlspecialchars($firstRow[$col]) . "</td>";
-        }
-        echo "</tr>";
-
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            foreach ($columns as $col) {
-                echo "<td contenteditable='true' data-column='" . htmlspecialchars($col) . "' data-id='" . $row['id'] . "'>" . htmlspecialchars($row[$col]) . "</td>";
-            }
-            echo "</tr>";
-        }
-        ?>
-    </tbody>
-</table>
-
 <script>
-const table = "<?= $table ?>";
-
-// บันทึกเมื่อ blur
 document.querySelectorAll('td[contenteditable="true"]').forEach(cell => {
     cell.addEventListener('blur', () => {
         const id = cell.dataset.id;
         const column = cell.dataset.column;
+        const table = cell.dataset.table;
         const value = cell.innerText.trim();
 
         fetch('update_cell.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `id=${id}&column=${column}&value=${encodeURIComponent(value)}&table=${table}`
-        }).then(r => r.text()).then(text => {
-            if (text !== 'success') alert('❌ ' + text);
-        });
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `id=${id}&column=${encodeURIComponent(column)}&value=${encodeURIComponent(value)}&table=${encodeURIComponent(table)}`
+        })
+        .then(res => res.text())
+        .then(response => {
+            if (response !== 'success') {
+                alert('❌ แก้ไขข้อมูลไม่สำเร็จ: ' + response);
+            }
+        })
+        .catch(err => alert('❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์'));
     });
 });
-
-// เพิ่มแถวใหม่
-function addRow() {
-    fetch('add_row.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `table=${table}`
-    }).then(() => location.reload());
-}
-
-// ลบแถวสุดท้าย
-function deleteRow() {
-    fetch('delete_row.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `table=${table}`
-    }).then(() => location.reload());
-}
-
-// เพิ่มคอลัมน์
-function addColumn() {
-    const newCol = prompt("ชื่อคอลัมน์ใหม่:");
-    if (!newCol) return;
-    fetch('add_column.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `table=${table}&column=${encodeURIComponent(newCol)}`
-    }).then(() => location.reload());
-}
-
-// ลบคอลัมน์สุดท้าย
-function deleteColumn() {
-    fetch('delete_column.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `table=${table}`
-    }).then(() => location.reload());
-}
 </script>
 
 </body>
