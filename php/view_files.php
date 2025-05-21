@@ -46,12 +46,11 @@ if (isset($_POST['delete_all'])) {
             <thead>
                 <tr>
                     <th>ชื่อไฟล์</th>
-                    <th>ที่ตั้งไฟล์</th>
+                    <!-- <th>ที่ตั้งไฟล์</th> -->
                     <th>อัปโหลดโดย</th>
                     <th>วันที่อัปโหลด</th>
                     <th>ดูข้อมูล</th>
                     <th>ดาวน์โหลด</th>
-                    <th>จัดการผู้ใช้</th>
                     <th>ลบ</th>
                 </tr>
             </thead>
@@ -63,7 +62,7 @@ if (isset($_POST['delete_all'])) {
 
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($row['filename']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['filepath']) . "</td>";
+                        // echo "<td>" . htmlspecialchars($row['filepath']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['uploaded_by']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['uploaded_at']) . "</td>";
 
@@ -78,8 +77,8 @@ if (isset($_POST['delete_all'])) {
 
                         echo "<td><a class='btn download' href='" . htmlspecialchars($row['filepath']) . "' download>ดาวน์โหลด</a></td>";
 
-                        // ปุ่มจัดการสิทธิ์ผู้ใช้
-                        echo "<td><a class='btn manage' href='manage_file_users.php?file_id=" . $row['id'] . "'>👥</a></td>";
+                        // // ปุ่มจัดการสิทธิ์ผู้ใช้
+                        // echo "<td><a class='btn manage' href='manage_file_users.php?file_id=" . $row['id'] . "'>👥</a></td>";
 
                         // ปุ่มลบ
                         echo "<td><a class='btn delete' href='delete_file.php?id=" . $row['id'] . "' onclick=\"return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบไฟล์นี้?');\">ลบ</a></td>";
