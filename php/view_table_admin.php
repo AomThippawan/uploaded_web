@@ -83,6 +83,9 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
         td[contenteditable="true"] {
             background-color: rgb(255, 255, 255);
         }
+        a {
+            text-decoration-line: none;
+        }
     </style>
 </head>
 
@@ -93,7 +96,7 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
         <?php if (isset($error_message)) echo "<p style='color: red;'>$error_message</p>"; ?>
 
 
-        <button id="toggle-user-form" style="float: right; padding: 6px 12px; margin-bottom: 10px;">➕ เพิ่มผู้ใช้ที่เข้าถึง</button>
+        <button id="toggle-user-form" style="float: right; padding: 6px 12px; margin-bottom: 10px;">➕ สิทธิ์การเข้าถึง</button>
 
         <form method="post" id="user-form" style="display:none; margin-top: 10px;">
             <div style="border: 1px solid #ccc; padding: 10px; max-height: 200px; overflow-y: auto;">
@@ -106,7 +109,7 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
                 <?php endforeach; ?>
             </div>
             <br>
-            <button type="submit" style="padding: 6px 12px;">💾 บันทึกสิทธิ์การเข้าถึง</button>
+            <button type="submit" style="padding: 6px 12px;">💾</button>
         </form>
     <?php endif; ?>
 

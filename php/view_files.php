@@ -45,8 +45,8 @@ if (isset($_POST['delete_all'])) {
 <body>
     <div class="container">
         <h2>ไฟล์ที่อัปโหลดแล้ว</h2>
-        <div class="addfile-btn" style="display: flex; justify-content: flex-end; width: 100%; margin-top: 20px;">
-            <a href="upload_form.php" class="menu-item">📤 อัปโหลดไฟล์ .xlsx</a>
+        <div class="addfile-btn" style="display: flex; justify-content: flex-end; width: 100%; margin-top: 20px;text-decoration-line: none;">
+            <a href="upload_form.php" class="menu-item" style="text-decoration-line: none; padding: 10px; background-color:rgb(49, 141, 55); border-radius: 6px; color: white;">📤 อัปโหลดไฟล์ .xlsx</a>
         </div>
 
         <table>
@@ -101,7 +101,7 @@ if (isset($_POST['delete_all'])) {
         <!-- ลบทั้งหมด -->
         <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 20px;">
             <form method="post" onsubmit="return confirm('ต้องการลบไฟล์ทั้งหมดหรือไม่?');">
-                <button type="submit" name="delete_all" class="btn delete">🗑️ ลบทั้งหมด</button>
+                <button type="submit" name="delete_all" class="btn delete" style="padding: 10px;">🗑️ ลบทั้งหมด</button>
             </form>
         </div>
 
