@@ -13,17 +13,24 @@ $sql = "SELECT * FROM uploaded_file ORDER BY uploaded_at DESC";
 $result = $conn->query($sql);
 
 if (isset($_POST['delete_all'])) {
-    $getFiles = $conn->query("SELECT filepath FROM uploaded_file");
+    $getFiles = $conn->query("SELECT filepath, filename FROM uploaded_file");
     while ($file = $getFiles->fetch_assoc()) {
         if (file_exists($file['filepath'])) {
             unlink($file['filepath']);
         }
+        $tableName = pathinfo($file['filename'], PATHINFO_FILENAME);
+        $safeTable = preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $tableName);
+        if ($safeTable !== '') {
+            $conn->query("DROP TABLE IF EXISTS `$safeTable`");
+        }
     }
 
     $conn->query("DELETE FROM uploaded_file");
+
     header("Location: view_files.php");
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +48,7 @@ if (isset($_POST['delete_all'])) {
         <div class="addfile-btn" style="display: flex; justify-content: flex-end; width: 100%; margin-top: 20px;">
             <a href="upload_form.php" class="menu-item">📤 อัปโหลดไฟล์ .xlsx</a>
         </div>
-        
+
         <table>
             <thead>
                 <tr>
@@ -91,8 +98,16 @@ if (isset($_POST['delete_all'])) {
                 ?>
             </tbody>
         </table>
+        <!-- ลบทั้งหมด -->
+        <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 20px;">
+            <form method="post" onsubmit="return confirm('ต้องการลบไฟล์ทั้งหมดหรือไม่?');">
+                <button type="submit" name="delete_all" class="btn delete">🗑️ ลบทั้งหมด</button>
+            </form>
+        </div>
 
         <p><a class="back-link" href="admin.php">← กลับสู่หน้าแอดมิน</a></p>
+
+
     </div>
 </body>
 

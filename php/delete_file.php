@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
     if ($filepath && file_exists($filepath)) {
         unlink($filepath); // ลบไฟล์จากเซิร์ฟเวอร์
 
-        // แปลงชื่อไฟล์ (เช่น uploads/student.xlsx → student)
+    
         $filename = pathinfo($filepath, PATHINFO_FILENAME);
         $tablename = preg_replace('/[^\p{L}\p{M}\p{N}_]/u', '', $filename); // กัน SQL Injection
         

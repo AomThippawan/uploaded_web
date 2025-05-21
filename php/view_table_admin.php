@@ -61,7 +61,7 @@ if (!$result) die("เกิดข้อผิดพลาดในการด�
 <body>
 
 <h2>ข้อมูลในไฟล์: <?php echo htmlspecialchars($table); ?></h2>
-<a href="<?php echo ($role === 'admin') ? 'admin.php' : 'user.php'; ?>">🔙 ย้อนกลับ</a>
+<a href="<?php echo ($role === 'admin') ? 'view_files.php' : 'user.php'; ?>">🔙 ย้อนกลับ</a>
 
 <div class="table-container">
     <table>
