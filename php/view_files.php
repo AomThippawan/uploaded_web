@@ -56,7 +56,7 @@ if (isset($_POST['delete_all'])) {
                     <!-- <th>ที่ตั้งไฟล์</th> -->
                     <th>อัปโหลดโดย</th>
                     <th>วันที่อัปโหลด</th>
-                    <th>ดูข้อมูล</th>
+                    <th>แก้ไข</th>
                     <th>ดาวน์โหลด</th>
                     <th>ลบ</th>
                 </tr>
@@ -78,7 +78,7 @@ if (isset($_POST['delete_all'])) {
                                 <form method='get' action='view_table_admin.php'>
                                     <input type='hidden' name='table' value='" . htmlspecialchars($tableName) . "'>
                                     <input type='hidden' name='t' value='" . time() . "'>
-                                    <button type='submit' class='btn view'>ดูข้อมูล</button>
+                                    <button type='submit' class='btn view'>แก้ไข</button>
                                 </form>
                               </td>";
 
