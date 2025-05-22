@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2025 at 10:21 AM
+-- Generation Time: May 22, 2025 at 04:14 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,100 @@ SET time_zone = "+00:00";
 --
 -- Database: `kantang_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `goal`
+--
+
+CREATE TABLE `goal` (
+  `id` int(11) NOT NULL,
+  `uploaded_file_id` int(11) DEFAULT NULL,
+  `goal_name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
+  `target_value` int(11) DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `goal`
+--
+
+INSERT INTO `goal` (`id`, `uploaded_file_id`, `goal_name`, `description`, `deadline`, `target_value`, `status`, `created_by`, `created_at`) VALUES
+(5, NULL, 'ไไไไไไไไไไ', 'oo', '2025-05-22', 0, 'pending', 'root', '2025-05-21 21:04:02'),
+(6, 62, 'test', 'adad', '2025-05-22', 100, 'completed', NULL, '2025-05-21 21:04:17'),
+(7, 48, 'test', 'qeqe', '2025-05-22', 100, 'completed', NULL, '2025-05-21 21:06:26'),
+(8, 47, 'test', 'wwwww', '2025-05-23', 0, 'pending', NULL, '2025-05-21 21:06:56'),
+(9, 63, 'test', 'yyyy', '2025-05-25', 0, 'pending', 'root', '2025-05-21 21:11:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test001`
+--
+
+CREATE TABLE `test001` (
+  `id` int(11) NOT NULL,
+  `1` varchar(255) DEFAULT NULL,
+  `2` varchar(255) DEFAULT NULL,
+  `3` varchar(255) DEFAULT NULL,
+  `4` varchar(255) DEFAULT NULL,
+  `5` varchar(255) DEFAULT NULL,
+  `6` varchar(255) DEFAULT NULL,
+  `7` varchar(255) DEFAULT NULL,
+  `8` varchar(255) DEFAULT NULL,
+  `9` varchar(255) DEFAULT NULL,
+  `10` varchar(255) DEFAULT NULL,
+  `11` varchar(255) DEFAULT NULL,
+  `12` varchar(255) DEFAULT NULL,
+  `13` varchar(255) DEFAULT NULL,
+  `14` varchar(255) DEFAULT NULL,
+  `15` varchar(255) DEFAULT NULL,
+  `16` varchar(255) DEFAULT NULL,
+  `17` varchar(255) DEFAULT NULL,
+  `18` varchar(255) DEFAULT NULL,
+  `19` varchar(255) DEFAULT NULL,
+  `20` varchar(255) DEFAULT NULL,
+  `21` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `test001`
+--
+
+INSERT INTO `test001` (`id`, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `13`, `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`) VALUES
+(1, 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test '),
+(2, 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test '),
+(3, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(6, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(7, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(8, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(9, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(10, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(11, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(12, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(13, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(14, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(15, 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test '),
+(16, 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test ', 'test '),
+(17, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(18, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(19, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(20, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(21, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(22, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(23, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(24, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(25, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(26, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(27, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(28, 'test ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -136,7 +230,9 @@ CREATE TABLE `uploaded_file` (
 
 INSERT INTO `uploaded_file` (`id`, `filename`, `filepath`, `uploaded_by`, `uploaded_at`, `allowed_users`) VALUES
 (47, 'testexcel.xlsx', '../uploads/testexcel.xlsx', 'tester1', '2025-05-20 11:04:01', 'tester2'),
-(48, 'testexcel2.xlsx', '../uploads/testexcel2.xlsx', 'tester1', '2025-05-20 11:43:27', 'tester2,tester3');
+(48, 'testexcel2.xlsx', '../uploads/testexcel2.xlsx', 'tester1', '2025-05-20 11:43:27', 'tester2,tester3'),
+(62, 'test001.xlsx', '../uploads/test001.xlsx', 'tester1', '2025-05-21 21:04:02', '0874698970'),
+(63, 'test001.xlsx', '../uploads/test001.xlsx', 'tester1', '2025-05-21 21:11:06', '0874698970');
 
 -- --------------------------------------------------------
 
@@ -147,7 +243,7 @@ INSERT INTO `uploaded_file` (`id`, `filename`, `filepath`, `uploaded_by`, `uploa
 CREATE TABLE `user_his` (
   `id` int(11) NOT NULL,
   `role` enum('user','admin') NOT NULL,
-  `username` varchar(255) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `password` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -433,6 +529,19 @@ INSERT INTO `user_his` (`id`, `role`, `username`, `name`, `password`) VALUES
 --
 
 --
+-- Indexes for table `goal`
+--
+ALTER TABLE `goal`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uploaded_file_id` (`uploaded_file_id`);
+
+--
+-- Indexes for table `test001`
+--
+ALTER TABLE `test001`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `testexcel`
 --
 ALTER TABLE `testexcel`
@@ -461,6 +570,18 @@ ALTER TABLE `user_his`
 --
 
 --
+-- AUTO_INCREMENT for table `goal`
+--
+ALTER TABLE `goal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `test001`
+--
+ALTER TABLE `test001`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
 -- AUTO_INCREMENT for table `testexcel`
 --
 ALTER TABLE `testexcel`
@@ -476,13 +597,23 @@ ALTER TABLE `testexcel2`
 -- AUTO_INCREMENT for table `uploaded_file`
 --
 ALTER TABLE `uploaded_file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `user_his`
 --
 ALTER TABLE `user_his`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `goal`
+--
+ALTER TABLE `goal`
+  ADD CONSTRAINT `goal_ibfk_1` FOREIGN KEY (`uploaded_file_id`) REFERENCES `uploaded_file` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

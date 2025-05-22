@@ -33,6 +33,7 @@ $name = $_SESSION['name'];
     <!-- <a href="upload_form.php" class="menu-item">📤 อัปโหลดไฟล์ .xlsx</a> -->
     <a href="view_files.php" class="menu-item">📁 จัดการไฟล์</a>
     <a href="manage_user.php" class="menu-item">👥 จัดการผู้ใช้</a>
+    <a href="dashboard.php" class="menu-item"> Dashboard Goal</a>
 </div>
 
 
