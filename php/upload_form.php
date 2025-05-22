@@ -54,10 +54,8 @@ $users = $conn->query("SELECT username, name FROM user_his WHERE role != 'admin'
                 <label>สถานะ Goal:</label>
                 <select name="goal_status[]" required>
                     <option value="pending" selected>รอดำเนินการ</option>
-                    <option value="in_progress">กำลังดำเนินการ</option>
                     <option value="completed">เสร็จสิ้นแล้ว</option>
-                    <option value="on_hold">พักไว้ก่อน</option>
-                    <option value="cancelled">ยกเลิก</option>
+
                 </select><br>
 
                 <button type="button" class="remove-goal-btn" onclick="removeGoal(this)">ลบ Goal นี้</button>

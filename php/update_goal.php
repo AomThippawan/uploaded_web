@@ -73,7 +73,6 @@ $goal = $result->fetch_assoc();
             <label>สถานะ:</label>
             <select name="status">
                 <option value="pending" <?= $goal['status'] === 'pending' ? 'selected' : '' ?>>รอดำเนินการ</option>
-                <option value="in_progress" <?= $goal['status'] === 'in_progress' ? 'selected' : '' ?>>กำลังดำเนินการ</option>
                 <option value="completed" <?= $goal['status'] === 'completed' ? 'selected' : '' ?>>สำเร็จแล้ว</option>
             </select>
 
