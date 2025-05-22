@@ -48,6 +48,7 @@ $result = $conn->query($sql);
                     <th>ชื่อ</th>
                     <th>วันที่อัปโหลด</th>
                     <th>ดูข้อมูล</th>
+                    <th>ดู Goal</th>
                     <!-- <th>ดาวน์โหลด</th> -->
                 </tr>
             </thead>
@@ -63,6 +64,7 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['filename']) . "</td>";
             echo "<td>" . $row['uploaded_at'] . "</td>";
             echo "<td><a href='view_table_user.php?table=" . urlencode($tableName) . "' title='ดูข้อมูล'>ดูข้อมูล</a></td>";
+            echo "<td><a class='btn goal' href='goal_details.php?file_id=" . $row['id'] . "'>ดู Goal</a></td>";
             // echo "<td><a href='" . htmlspecialchars($row['filepath']) . "' download title='ดาวน์โหลดไฟล์'><i class='fa-regular fa-file-excel'></i></a></td>";
             echo "</tr>";
         }

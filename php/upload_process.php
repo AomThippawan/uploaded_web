@@ -57,6 +57,32 @@ if (isset($_FILES['excel_file']) && isset($_POST['allowed_users'])) {
             $conn->query($insertQuery);
         }
 
+        // อ่านข้อมูล Goal จากฟอร์ม
+        $uploaded_file_id = $stmt->insert_id;
+        $goal_names = $_POST['goal_name'] ?? [];
+        $goal_descriptions = $_POST['goal_description'] ?? [];
+        $goal_deadlines = $_POST['goal_deadline'] ?? [];
+        $goal_statuses = $_POST['goal_status'] ?? [];
+
+        $stmt2 = $conn->prepare("INSERT INTO goal 
+            (uploaded_file_id, goal_name, description, deadline, target_value, status, created_by, created_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+
+        for ($i = 0; $i < count($goal_names); $i++) {
+            $name = trim($goal_names[$i]);
+            $desc = trim($goal_descriptions[$i] ?? '');
+            $deadline = trim($goal_deadlines[$i] ?? '');
+            $statusGoal = trim($goal_statuses[$i] ?? 'pending');
+            $targetValue = 0;
+
+            if ($name === '' || $deadline === '') continue;
+
+            $stmt2->bind_param("isssiss", 
+                $uploaded_file_id, $name, $desc, $deadline, $targetValue, $statusGoal, $username);
+            $stmt2->execute();
+
+        }
+
         header("Location: view_files.php");
     } else {
         echo "ไม่สามารถอัปโหลดไฟล์ได้";

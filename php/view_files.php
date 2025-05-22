@@ -56,6 +56,7 @@ if (isset($_POST['delete_all'])) {
                     <!-- <th>ที่ตั้งไฟล์</th> -->
                     <th>อัปโหลดโดย</th>
                     <th>วันที่อัปโหลด</th>
+                    <th>Goal</th>
                     <th>แก้ไข</th>
                     <th>ดาวน์โหลด</th>
                     <th>ลบ</th>
@@ -72,6 +73,8 @@ if (isset($_POST['delete_all'])) {
                         // echo "<td>" . htmlspecialchars($row['filepath']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['uploaded_by']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['uploaded_at']) . "</td>";
+                        
+                        echo "<td><a class='btn goal' href='goal_details.php?file_id=" . $row['id'] . "'>ดู Goal</a></td>";
 
                         // ปุ่มดูข้อมูล พร้อมส่ง table name และ timestamp กันแคช
                         echo "<td>
