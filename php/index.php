@@ -31,23 +31,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <title>เข้าสู่ระบบ</title>
+    <!-- FontAwesome (ไอคอน) -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
 </head>
-<body>
 
-<div class="login-card">
-    <h2>เข้าสู่ระบบ</h2>
-    <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
-    <form action="index.php" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="เข้าสู่ระบบ">
-    </form>
-</div>
+<body>
+    <!-- TopBar-->
+    <div class="topbar">
+        <div class="topbar-right">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+    <!-- end TopBar-->
+    <!-- LOGO BAR -->
+    <div class="logobar">
+        <div class="logo-text">
+            <span class="rsa">RSA</span><span class="thai">THAI</span>
+        </div>
+    </div>
+    <!-- end LOGO BAR -->
+    <!-- LOGIN CARD -->
+    <div class="container">
+        <div class="login-card">
+            <h2>เข้าสู่ระบบ</h2>
+            <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
+            <form action="index.php" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="เข้าสู่ระบบ">
+            </form>
+        </div>
+    </div>
 
 </body>
-</html>
 
+</html>
